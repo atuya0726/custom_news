@@ -1,0 +1,39 @@
+version: '3'
+services:
+  app:
+    build: 
+      context: ./back
+      dockerfile: dockerfile.back
+    container_name: custom-news
+    volumes:
+      - ./back:/app
+    ports:
+      - "8080:80"
+
+  front:
+    build:
+      context: .
+      dockerfile: dockerfile.front
+    volumes:
+      -  ./front:/app
+    command: sh -c "PORT=3000 npm start"
+    ports:
+      -  "3000:3000"
+    stdin_open: true
+    
+  
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: custom_news
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+volumes: 
+  db_data:
