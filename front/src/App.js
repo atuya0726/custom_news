@@ -1,10 +1,19 @@
-
-import Ranking from "./ranking"
+import axios from 'axios';
+import {useEffect} from 'react';
+import {useState} from 'react';
 
 function App() {
+  const [data,setData] = useState([]);
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await axios.get('/data');
+      setData(response.data)
+    }
+    getUser()
+  }, [])
   return (
     <div>
-      <Ranking/>
+      {data}
       <input type="text"/>
       <button>タスクを追加</button>
       <button>タスクを削除</button>
