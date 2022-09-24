@@ -4,7 +4,7 @@ services:
     build: 
       context: ./back
       dockerfile: dockerfile.back
-    container_name: custom-news
+    container_name: custom_news_back
     volumes:
       - ./back:/app
     ports:
@@ -12,11 +12,12 @@ services:
 
   front:
     build:
-      context: .
+      context: ./front
       dockerfile: dockerfile.front
+    container_name: custom_news_front
     volumes:
       -  ./front:/app
-    command: sh -c "PORT=3000 npm start"
+    command: sh -c "chmod 755 ./entrypoint.sh && ./entrypoint.sh"
     ports:
       -  "3000:3000"
     stdin_open: true
