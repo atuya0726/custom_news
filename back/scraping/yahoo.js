@@ -2,7 +2,7 @@
 const puppeteer = require('puppeteer');
 
 
-(async () => {
+module.exports.yahooScraping = async () => {
  
   const browser = await puppeteer.launch({
     headless: true,
@@ -12,12 +12,13 @@ const puppeteer = require('puppeteer');
     ]
   })
 
+  let datas;
   try {
     const page = await browser.newPage()
     await page.goto('https://news.yahoo.co.jp/ranking/access/news')
     let list_selector = "div > div.sc-gipzik.hgiWWi > main#contents > div#yjnMain > div#contentsWrap > div.newsFeed > ol > li > a > div.newsFeed_item_body > div.newsFeed_item_text > div.newsFeed_item_title  "
     await page.waitForSelector('#contentsWrap')
-    var datas = await page.$$eval(list_selector, list => {
+    datas = await page.$$eval(list_selector, list => {
       return list.map(data => data.textContent);
   });
 
@@ -27,5 +28,6 @@ const puppeteer = require('puppeteer');
     console.error(e)
   } finally {
     browser.close()
+    return datas;
   }
-})()
+}
