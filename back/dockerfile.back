@@ -8,8 +8,3 @@ RUN apt-get update && apt-get install gnupg wget -y && \
 
 WORKDIR /app
 COPY . .
-RUN npm install 
-RUN npm install express
-RUN npm install puppeteer
-RUN npm install nodemon
-CMD [ "npx", "nodemon", "./server.js"]
