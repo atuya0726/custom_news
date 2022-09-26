@@ -5,11 +5,11 @@ import {useState} from 'react';
 function App() {
   const [data,setData] = useState([]);
   useEffect(() => {
-    const getUser = async () => {
+    const getData = async () => {
       const response = await axios.get('/data');
       setData(response.data)
     }
-    getUser()
+    getData()
   }, [])
   return (
     <div>
