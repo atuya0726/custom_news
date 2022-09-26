@@ -1,10 +1,11 @@
 version: '3'
 services:
-  app:
+  back:
     build: 
       context: ./back
       dockerfile: dockerfile.back
     container_name: custom_news_back
+    command: sh -c "chmod 755 ./entrypoint.sh && ./entrypoint.sh"
     volumes:
       - ./back:/app
     ports:
