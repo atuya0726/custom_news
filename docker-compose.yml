@@ -23,8 +23,8 @@ services:
     stdin_open: true
     
   
-  postgres:
-    container_name: postgres
+  db:
+    container_name: custom_news_db
     image: postgres
     ports:
       - "5432:5432"
@@ -35,6 +35,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
+    depends_on:
+      - back
 
 volumes: 
   db_data:
