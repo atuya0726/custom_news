@@ -8,12 +8,10 @@ def fetch_news_data():
     client_secret = os.getenv("COTOHA_CLIENT_SECRET")
     base_url = os.getenv("COTOHA_BASE_URL")
     access_token_publish_url = os.getenv("COTOHA_ACCESS_TOKEN_PUBLISH_URL")
+    cotoha_api = CotohaApi(client_id, client_secret, base_url, access_token_publish_url)
 
-    print(base_url)
-    # cotoha_api = CotohaApi(client_id, client_secret, base_url, access_token_publish_url)
+    document = "私は人間だとは思いませんが、ある意味では人間であると思ってもよいと思います。"
 
-    # document = "私は人間だとは思いませんが、ある意味では人間であると思ってもよいと思います。"
+    result = cotoha_api.extract_keywords_from_texts(document)
 
-    # result = cotoha_api.extract_keywords_from_texts(document)
-
-    # print(result)
+    print(result)
