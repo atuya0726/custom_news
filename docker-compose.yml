@@ -9,6 +9,8 @@ services:
       - ./back:/app
     ports:
       - "8080:80"
+    depends_on:
+      - db
 
   front:
     build:
@@ -35,8 +37,6 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
-    depends_on:
-      - back
 
 volumes: 
   db_data:

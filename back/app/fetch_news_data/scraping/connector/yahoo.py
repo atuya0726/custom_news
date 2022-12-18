@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 url = "https://news.yahoo.co.jp/ranking/access/news"
 
 def result():

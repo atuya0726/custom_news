@@ -1,17 +1,18 @@
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 import os
 from data_processing.data_processing import CotohaApi
-load_dotenv(find_dotenv())
+load_dotenv()
+from db.db import ComputeDB
+from scraping.scraping import scraping
 
 def fetch_news_data():
-    client_id = os.getenv("COTOHA_CLIENT_ID")
-    client_secret = os.getenv("COTOHA_CLIENT_SECRET")
-    base_url = os.getenv("COTOHA_BASE_URL")
-    access_token_publish_url = os.getenv("COTOHA_ACCESS_TOKEN_PUBLISH_URL")
-    cotoha_api = CotohaApi(client_id, client_secret, base_url, access_token_publish_url)
+    data = scraping()
+    data = data[0]
+    print(data)
 
-    document = "私は人間だとは思いませんが、ある意味では人間であると思ってもよいと思います。"
 
-    result = cotoha_api.extract_keywords_from_texts(document)
-
-    print(result)
+    # ComputeDB.insert_articles(2,data["title"],data["rank"],"test_keyword","yahoo","test_content")
+    # a = ComputeDB.select_all_articles()
+    # print(a)
+    print(ComputeDB.select_today_articles())
+    

@@ -4,6 +4,3 @@ requests
 beautifulsoup4
 python-dotenv
 SQLAlchemy
-psycopg2-binary
-pydantic
-alembic

@@ -2,11 +2,13 @@ import json
 import urllib.request
 class CotohaApi:
     def __init__(self, client_id, client_secret, base_url, access_token_publish_url):
-        self.client_id  = client_id
-        self.client_secret = client_secret
-        self.base_url = base_url
-        self.access_token_publish_url = access_token_publish_url
+        self.client_id  = os.getenv("COTOHA_CLIENT_ID")
+        self.client_secret = os.getenv("COTOHA_CLIENT_SECRET")
+        self.base_url = os.getenv("COTOHA_BASE_URL")
+        self.access_token_publish_url = os.getenv("COTOHA_ACCESS_TOKEN_PUBLISH_URL")
         self.fetch_access_token()
+
+    
 
     def fetch_access_token(self):
         url = self.access_token_publish_url
