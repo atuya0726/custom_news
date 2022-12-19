@@ -6,12 +6,11 @@ from db.db import ComputeDB
 from scraping.scraping import scraping
 
 def fetch_news_data():
-    data = scraping()
-    data = data[0]
-    print(data)
+    article_dict = scraping()
+    
 
 
-    # ComputeDB.insert_articles(2,data["title"],data["rank"],"test_keyword","yahoo","test_content")
+    # ComputeDB.insert_articles(article_dict)
     # a = ComputeDB.select_all_articles()
     # print(a)
     print(ComputeDB.select_today_articles())
