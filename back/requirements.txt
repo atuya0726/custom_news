@@ -1,0 +1,7 @@
+fastapi ==0.88.0
+uvicorn == 0.20.0
+requests 
+beautifulsoup4
+python-dotenv
+SQLAlchemy
+psycopg2
