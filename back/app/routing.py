@@ -1,6 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
-from store_news_data.store_news_data import store_news_data
+from .store_news_data.store_news_data import store_news_data
+from .store_news_data.db.db import ComputeDB
 
 app = FastAPI()
 
@@ -16,10 +17,19 @@ def store():
     except Exception as e:
         return e
     finally:
-        return {"SUCCESS"}
+        print("SUCCESS")
 
-# @app.get("/fetch")
-# def fetch():
+@app.get("/fetch")
+def fetch():
+    try:
+        data = ComputeDB.select_today_articles()
+        return data
+    except Exception as e:
+        return e
+    finally:
+        print("SUCCESS")
+
+
 
 
 

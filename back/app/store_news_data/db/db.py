@@ -1,14 +1,8 @@
 from typing import List
 from sqlalchemy.sql import text
 import datetime
-import sys
-import pathlib
-current_dir = pathlib.Path(__file__).resolve().parent
-sys.path.append(str(current_dir))
-from dbaccess import DBAccess
+from .dbaccess import DBAccess
 
-
-# MA_CODEの内容を全件取得する。
 class ComputeDB:
     def select_all_articles():
         db = DBAccess()
