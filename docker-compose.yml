@@ -36,7 +36,6 @@ services:
       POSTGRES_DB: custom_news
     volumes:
       - db_data:/var/lib/postgresql/data
-      - ./initdb:/docker-entrypoint-initdb.d
 
 volumes: 
   db_data:
