@@ -33,16 +33,20 @@ class ComputeDB:
 
         return article_data
     
-    def bulk_insert_articles(article_dict):
+    def bulk_insert_articles(formatted_article_dicts):
         db = DBAccess()
         con = db.connect_database()
-        sql_text = "INSERT INTO articles (title, ranking, referenced_site, content, created_date, url, keywords) VALUES 
+        sql_text = "INSERT INTO articles (title, ranking, referenced_site, content, created_date, url, keywords) VALUES "
 
-        for row in article_data:
+        for article_dict in formatted_article_dicts:
+            temp = "('{}',{},'{}','{}',CURRENT_DATE,'{}','{}'),".format(article_dict["title"],article_dict["ranking"],article_dict["referenced_site"],article_dict["content"],article_dict["url"],article_dict["keywords"])
+            sql_text = sql_text + temp
+        sql_text = sql_text[:-1]
+        sql_text = sql_text + ";"
 
 
 
-        print(sql_text)
+        # print(sql_text)
         query = text(sql_text)
 
         try:

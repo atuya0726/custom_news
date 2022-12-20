@@ -1,7 +1,9 @@
 import json
 import urllib.request
+import os
+import json
 class CotohaApi:
-    def __init__(self, client_id, client_secret, base_url, access_token_publish_url):
+    def __init__(self):
         self.client_id  = os.getenv("COTOHA_CLIENT_ID")
         self.client_secret = os.getenv("COTOHA_CLIENT_SECRET")
         self.base_url = os.getenv("COTOHA_BASE_URL")
@@ -33,7 +35,7 @@ class CotohaApi:
         self.access_token = result_body["access_token"]
 
 
-    def extract_keywords_from_texts (self, document):
+    def extract_keywords_and_attach (self, article_dicts):
         url = self.base_url + "nlp/v1/keyword"
 
         headers={
@@ -41,19 +43,20 @@ class CotohaApi:
             "Authorization": "Bearer " + self.access_token
         }
 
-        request_body = {
-            "document": document
-        }
-        request_body = json.dumps(request_body).encode()
+        for article_dict in article_dicts:
+            request_body = {
+                "document": article_dict["content"]
+            }
+            request_body = json.dumps(request_body).encode()
+            request = urllib.request.Request(url, request_body, headers)
 
-        request = urllib.request.Request(url, request_body, headers)
+            try:
+                result = urllib.request.urlopen(request)
+            except urllib.request.HTTPError as e:
+                print("<Error>" + e.reason)
+            
+            result_body = json.loads(result.read())
+            article_dict["keywords"] = json.dumps(result_body)
 
-        try:
-            result = urllib.request.urlopen(request)
-        except urllib.request.HTTPError as e:
-            print("<Error>" + e.reason)
-        
-        result_body = json.loads(result.read())
-
-        return result_body
+        return article_dicts
     
