@@ -15,7 +15,7 @@ class ComputeDB:
         try:
             rows = con.execute(query)
             for row in rows:
-                detum = {"article_id":row[0], "title":row[1], "ranking":row[2], "keywords":row[3], "referenced_site":row[4], "content":row[5], "created_date":row[6] }
+                detum = {"article_id":row[0], "title":row[1], "ranking":row[2], "referenced_site":row[3], "content":row[4], "created_date":row[5], "url":row[6], "keywords":row[7] }
                 article_data.append(detum)
                 
         except Exception as err:

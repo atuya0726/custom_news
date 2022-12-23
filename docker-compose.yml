@@ -14,12 +14,12 @@ services:
 
   front:
     build:
-      context: ./front
+      context: ./
       dockerfile: dockerfile.front
     container_name: custom_news_front
     volumes:
       -  ./front:/app
-    command: sh -c "chmod 755 ./entrypoint.sh && ./entrypoint.sh"
+    command: npm start
     ports:
       -  "3000:3000"
     stdin_open: true

@@ -29,6 +29,16 @@ def fetch():
     finally:
         print("SUCCESS")
 
+@app.get("/all")
+def all():
+    try:
+        data = ComputeDB.select_all_articles()
+        return data
+    except Exception as e:
+        return e
+    finally:
+        print("SUCCESS")
+
 
 
 
