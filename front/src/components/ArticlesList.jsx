@@ -8,11 +8,9 @@ function ArticlesList(props) {
 
     return(
         <ListGroup >
-            <ListGroup.Item variant="primary">Yahoo news</ListGroup.Item>
+            <ListGroup.Item variant="primary">{props.name}</ListGroup.Item>
             {listArticles}
         </ListGroup>
-        
-        
     )
 }
 

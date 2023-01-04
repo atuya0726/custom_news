@@ -18,17 +18,15 @@ function App() {
 
   return (
   <>
-    <Navbar bg = 'primary' variant='dark'>
+    <Navbar expand="lg" bg = 'primary' variant='dark'>
       <Navbar.Brand>Custom News</Navbar.Brand>
     </Navbar>
+    
     <Container>
+      
     
       <Row>
-        <Col> <ArticlesList data={articles} /> </Col>
-      </Row>
-      <Row>
-        <Col>ccccccccc</Col>
-        <Col>dddddddddddddd</Col>
+        <Col> <ArticlesList data={articles} name="Yahoo news!!" /> </Col>
       </Row>
     
     </Container>

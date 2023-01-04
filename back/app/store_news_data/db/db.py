@@ -56,7 +56,7 @@ class ComputeDB:
         db = DBAccess()
         con = db.connect_database()
         dt_now = datetime.datetime.now()
-        sql_text = "SELECT * FROM articles WHERE created_date='{0}-{1}-{2}'".format(dt_now.year, dt_now.month, dt_now.day)
+        sql_text = "SELECT * FROM articles WHERE created_date='{0}-{1}-{2}';".format(dt_now.year, dt_now.month, dt_now.day)
         print(sql_text)
         query = text(sql_text)
 
@@ -74,4 +74,39 @@ class ComputeDB:
             db.disconnect_database(con)
 
         return article_data
+
+    def select_keywords_from_ten_days_ago():
+        db = DBAccess()
+        con = db.connect_database()
+        dt_now = datetime.datetime.now()
+        dt_ten_days_ago = dt_now - datetime.timedelta(days=10)
+        sql_text = "SELECT keywords, content FROM articles WHERE created_date BETWEEN '{0}-{1}-{2}' AND '{3}-{4}-{5}';".format( dt_ten_days_ago.year, dt_ten_days_ago.month, dt_ten_days_ago.day, dt_now.year, dt_now.month, dt_now.day)
+        print(sql_text)
+        query = text(sql_text)
+
+        all_keywords_data = {}
+
+        try:
+            rows = con.execute(query)
+            for row in rows:
+                article_keywords = row[0]['result']
+                content = row[1]
+                for keyword_data in article_keywords:
+                    keyword = keyword_data["form"]
+                    if keyword in all_keywords_data:
+                        all_keywords_data[keyword]["score"] += float(keyword_data["score"])
+                        all_keywords_data[keyword]["content"].append(content)
+                    else:
+                        all_keywords_data[keyword] = {"score":float(keyword_data["score"]), "content":[content]}
+                    
+        except Exception as err:
+            print(err)
+            exit()
+        finally:
+            db.disconnect_database(con)
+
+        all_keywords_data = sorted(all_keywords_data.items(), key=lambda x:x[1]["score"], reverse=True)
+        top_ten_keywords_data = all_keywords_data[:10]
+        print(top_ten_keywords_data)
+        return top_ten_keywords_data
         

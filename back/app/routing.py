@@ -39,6 +39,16 @@ def all():
     finally:
         print("SUCCESS")
 
+@app.get("/hot_keyword")
+def hot_keyword():
+    try:
+        data = ComputeDB.select_keywords_from_ten_days_ago()
+        return data
+    except Exception as e:
+        return err
+    finally:
+        print("SUCCESS")
+
 
 
 
