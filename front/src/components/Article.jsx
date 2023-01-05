@@ -2,8 +2,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import {Container,Row,Col} from 'react-bootstrap'
 function article(props) {
     return(
-        
-           
+            
         <ListGroup.Item action href = {props.article["URL"]}>
             <Container>
                 <Row>
@@ -15,11 +14,7 @@ function article(props) {
                     </Col>
                 </Row>
             </Container>   
-        </ListGroup.Item>
-            
-
-        
-        
+        </ListGroup.Item> 
     )
 }
 

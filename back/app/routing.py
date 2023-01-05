@@ -39,7 +39,7 @@ def all():
     finally:
         print("SUCCESS")
 
-@app.get("/hot_keyword")
+@app.get("/hot_keywords")
 def hot_keyword():
     try:
         data = ComputeDB.select_keywords_from_ten_days_ago()

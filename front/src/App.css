@@ -9,6 +9,9 @@
 .navbar{
   margin-bottom: 1em;
 }
+.row_hot{
+  margin: 1em;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
