@@ -1,25 +1,43 @@
-import axios from 'axios';
-import {useEffect} from 'react';
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
+import {Container,Row,Col,Navbar} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+import ArticlesList from './components/ArticlesList';
+import KeywordsList from './components/KeywordsList';
 
 function App() {
-  const [data,setData] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [keywords, setKeywords] = useState([]);
   useEffect(() => {
-    const getData = async () => {
-      const response = await axios.get('/data');
-      setData(response.data)
+    const getArticles = async () => {
+      const response = await axios.get('/fetch');
+      setArticles(response.data)
+      const response_keywords = await axios.get('/hot_keywords')
+      setKeywords(response_keywords.data)
     }
-    getData()
-  }, [])
+    getArticles();
+  },[]);
   return (
-    <div>
-      {data}
-      <input type="text"/>
-      <button>タスクを追加</button>
-      <button>タスクを削除</button>
-    </div>
+  <>
+    <Navbar expand="lg" bg = 'primary' variant='dark'>
+      <Navbar.Brand>Custom News</Navbar.Brand>
+    </Navbar>
     
-
+    <Container>
+      <Row bsPrefix='row_hot'>
+        <Col><KeywordsList data={keywords} name="Hot Keyword"/></Col>
+      </Row>
+      <Row>
+        <Col> <ArticlesList data={articles} name="Yahoo news!!" /> </Col>
+      </Row>
+    
+    </Container>
+  </>
+  
+  
+    
+    
   );
 }
 

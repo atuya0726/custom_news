@@ -14,12 +14,12 @@ services:
 
   front:
     build:
-      context: ./front
+      context: ./
       dockerfile: dockerfile.front
     container_name: custom_news_front
     volumes:
       -  ./front:/app
-    command: sh -c "chmod 755 ./entrypoint.sh && ./entrypoint.sh"
+    command: npm start
     ports:
       -  "3000:3000"
     stdin_open: true
@@ -36,7 +36,6 @@ services:
       POSTGRES_DB: custom_news
     volumes:
       - db_data:/var/lib/postgresql/data
-      - ./initdb:/docker-entrypoint-initdb.d
 
 volumes: 
   db_data:
