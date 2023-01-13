@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.sql import text
 import datetime
-from .dbaccess import DBAccess
+from dbaccess import DBAccess
 
 class ComputeDB:
     def select_all_articles():

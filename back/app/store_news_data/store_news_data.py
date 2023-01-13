@@ -1,6 +1,5 @@
-import os
 from .data_processing.data_processing import CotohaApi
-from .db.db import ComputeDB
+from db import ComputeDB
 from .scraping.scraping import scraping
 
 def store_news_data():

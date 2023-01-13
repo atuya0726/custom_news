@@ -9,6 +9,8 @@ services:
       - ./back:/app
     ports:
       - "8080:80"
+    env_file:
+      - ./back/.env
     depends_on:
       - db
 

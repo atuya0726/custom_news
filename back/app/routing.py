@@ -1,7 +1,9 @@
-from typing import Union
 from fastapi import FastAPI
+import os
+import sys
+sys.path.append(os.path.abspath(os.getenv('DB_MODULE')))
 from .store_news_data.store_news_data import store_news_data
-from .store_news_data.db.db import ComputeDB
+from .fetch_news_data import *
 
 app = FastAPI()
 
@@ -14,40 +16,41 @@ def read_root():
 def store():
     try:
         store_news_data()
+        print("SUCCESS")
     except Exception as e:
         return e
-    finally:
-        print("SUCCESS")
+    
 
 @app.get("/fetch")
 def fetch():
     try:
-        data = ComputeDB.select_today_articles()
+        data = select_today_articles()
+        print("SUCCESS")
         return data
     except Exception as e:
         return e
-    finally:
-        print("SUCCESS")
+    
+       
 
 @app.get("/all")
 def all():
     try:
-        data = ComputeDB.select_all_articles()
+        data = select_all_articles()
+        print("SUCCESS")
         return data
     except Exception as e:
         return e
-    finally:
-        print("SUCCESS")
+    
 
 @app.get("/hot_keywords")
 def hot_keyword():
     try:
-        data = ComputeDB.select_keywords_from_ten_days_ago()
+        data = select_keywords_from_ten_days_ago()
+        print("SUCCESS")
         return data
     except Exception as e:
         return err
-    finally:
-        print("SUCCESS")
+    
 
 
 
